@@ -23,16 +23,20 @@ public class RestaurantSchedule {
         List<TimeWindow> dailyWindows = weeklyHours.computeIfAbsent(day, k -> new ArrayList<>());
         TimeWindow newWindow = new TimeWindow(startHour, endHour);
 
-        boolean isOverlapping = dailyWindows.stream().anyMatch(existing ->
-                newWindow.startHour().isBefore(existing.endHour()) &&
-                        newWindow.endHour().isAfter(existing.startHour())
-        );
+        boolean isOverlapping = isIsOverlapping(dailyWindows, newWindow);
 
         if (isOverlapping) {
             throw new ValidationException("Schedule overlaps with an existing time window.");
         }
 
         dailyWindows.add(newWindow);
+    }
+
+    private boolean isIsOverlapping(List<TimeWindow> dailyWindows, TimeWindow newWindow) {
+        return dailyWindows.stream().anyMatch(existing ->
+                newWindow.startHour().isBefore(existing.endHour()) &&
+                        newWindow.endHour().isAfter(existing.startHour())
+        );
     }
 
     public record TimeWindow(LocalTime startHour, LocalTime endHour) {
