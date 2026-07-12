@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/restaurants")
 @RequiredArgsConstructor
 public class RestaurantApiController {
-    private RestaurantController restaurantController;
-    private RestaurantMapper restaurantMapper;
+    private final RestaurantController restaurantController;
+    private final RestaurantMapper restaurantMapper;
 
     @PostMapping
     public Long createRestaurant(@Valid @RequestBody RestaurantJson restaurantJson) {

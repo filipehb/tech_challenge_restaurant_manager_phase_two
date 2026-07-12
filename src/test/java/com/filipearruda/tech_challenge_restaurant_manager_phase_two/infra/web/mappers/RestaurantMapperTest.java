@@ -1,8 +1,8 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.web.mappers;
 
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.TypeKitchen;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantOutputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantScheduleDto;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.TypeKitchen;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.web.json.RestaurantJson;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.web.json.RestaurantScheduleJson;
 import org.junit.jupiter.api.Test;

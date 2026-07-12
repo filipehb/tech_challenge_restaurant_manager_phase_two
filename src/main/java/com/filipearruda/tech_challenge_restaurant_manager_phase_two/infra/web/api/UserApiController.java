@@ -6,6 +6,8 @@ import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.web.ma
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserApiController {
-    private UserController userController;
-    private UserMapper userMapper;
+    private final UserController userController;
+    private final UserMapper userMapper;
 
     @PostMapping
     public Long createUser(@Valid @RequestBody UserJson userJson) {
@@ -22,7 +24,8 @@ public class UserApiController {
     }
 
     @PostMapping(value = "/associate-user/{userId}/to-type/{userTypeId}")
-    public Long associateUserToUserType(@PathVariable Long userTypeId, @PathVariable Long userId) {
-        return userController.associateUserToUserType(userId, userTypeId);
+    public ResponseEntity<UserJson> associateUserToUserType(@PathVariable Long userTypeId, @PathVariable Long userId) {
+        UserJson userJson = userMapper.mapToJson(userController.associateUserToUserType(userId, userTypeId));
+        return new ResponseEntity<>(userJson, HttpStatus.NO_CONTENT);
     }
 }

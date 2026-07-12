@@ -14,7 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,15 +43,14 @@ class AssociateUserUseCaseImplTest {
 
         when(userGateway.findById(userId)).thenReturn(Optional.of(user));
         when(userTypeGateway.findById(userTypeId)).thenReturn(Optional.of(userType));
-        when(userGateway.update(user)).thenReturn(userId);
+        when(userGateway.update(userId, user)).thenReturn(user);
 
-        Long result = associateUserUseCase.associateUserToUserType(userId, userTypeId);
+        User result = associateUserUseCase.associateUserToUserType(userId, userTypeId);
 
-        assertEquals(userId, result);
+        assertEquals(userId, result.getId());
         assertEquals(userType, user.getUserType());
         verify(userGateway).findById(userId);
         verify(userTypeGateway).findById(userTypeId);
-        verify(userGateway).update(user);
     }
 
     @Test
@@ -66,7 +66,7 @@ class AssociateUserUseCaseImplTest {
 
         verify(userGateway).findById(userId);
         verifyNoInteractions(userTypeGateway);
-        verify(userGateway, never()).update(any());
+        verify(userGateway, never()).update(any(), any());
     }
 
     @Test
@@ -84,6 +84,6 @@ class AssociateUserUseCaseImplTest {
 
         verify(userGateway).findById(userId);
         verify(userTypeGateway).findById(userTypeId);
-        verify(userGateway, never()).update(any());
+        verify(userGateway, never()).update(any(), any());
     }
 }

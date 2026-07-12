@@ -1,0 +1,666 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Restaurant Manager - Phase 2",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "userTypeId",
+      "value": ""
+    },
+    {
+      "key": "userTypeClienteId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "restaurantId",
+      "value": ""
+    },
+    {
+      "key": "menuItemId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. User Type",
+      "item": [
+        {
+          "name": "Create User Type - Dono de Restaurante",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const id = pm.response.text();",
+                  "pm.test('Body is a numeric id', function () {",
+                  "    pm.expect(Number(id)).to.be.a('number').and.above(0);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set('userTypeId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dono de Restaurante\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user-type",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user-type"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create User Type - Cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const id = pm.response.text();",
+                  "pm.test('Body is a numeric id', function () {",
+                  "    pm.expect(Number(id)).to.be.a('number').and.above(0);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set('userTypeClienteId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cliente\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user-type",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user-type"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Name matches', function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.name).to.eql('Dono de Restaurante');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user-type/{{userTypeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user-type",
+                "{{userTypeId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dono de Restaurante\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user-type/{{userTypeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user-type",
+                "{{userTypeId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User Type - Cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user-type/{{userTypeClienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user-type",
+                "{{userTypeClienteId}}"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. User",
+      "item": [
+        {
+          "name": "Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const id = pm.response.text();",
+                  "pm.test('Body is a numeric id', function () {",
+                  "    pm.expect(Number(id)).to.be.a('number').and.above(0);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set('userId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"owner@restaurant.com\",\n  \"password\": \"SecurePass123\",\n  \"name\": \"Maria Owner\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Associate User to User Type",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/user/associate-user/{{userId}}/to-type/{{userTypeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "associate-user",
+                "{{userId}}",
+                "to-type",
+                "{{userTypeId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Restaurant",
+      "item": [
+        {
+          "name": "Create Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const id = pm.response.text();",
+                  "pm.test('Body is a numeric id', function () {",
+                  "    pm.expect(Number(id)).to.be.a('number').and.above(0);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set('restaurantId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cantina da Maria\",\n  \"address\": \"Rua das Flores, 100\",\n  \"typeKitchen\": \"FAST_CASUAL\",\n  \"restaurantSchedule\": {\n    \"weeklyHours\": {\n      \"MONDAY\": [\n        { \"startHour\": \"08:00:00\", \"endHour\": \"12:00:00\" },\n        { \"startHour\": \"14:00:00\", \"endHour\": \"18:00:00\" }\n      ],\n      \"TUESDAY\": [\n        { \"startHour\": \"08:00:00\", \"endHour\": \"18:00:00\" }\n      ],\n      \"WEDNESDAY\": [\n        { \"startHour\": \"08:00:00\", \"endHour\": \"18:00:00\" }\n      ],\n      \"THURSDAY\": [\n        { \"startHour\": \"08:00:00\", \"endHour\": \"18:00:00\" }\n      ],\n      \"FRIDAY\": [\n        { \"startHour\": \"08:00:00\", \"endHour\": \"22:00:00\" }\n      ]\n    }\n  },\n  \"owner\": {{userId}},\n  \"menuItems\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Restaurant fields are present', function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.name).to.eql('Cantina da Maria');",
+                  "    pm.expect(body.address).to.eql('Rua das Flores, 100');",
+                  "    pm.expect(body.typeKitchen).to.eql('FAST_CASUAL');",
+                  "    pm.expect(body.owner).to.eql(Number(pm.collectionVariables.get('userId')));",
+                  "    pm.expect(body.restaurantSchedule).to.have.property('weeklyHours');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cantina da Maria Premium\",\n  \"address\": \"Av. Paulista, 1000\",\n  \"typeKitchen\": \"COMMERCIAL\",\n  \"restaurantSchedule\": {\n    \"weeklyHours\": {\n      \"MONDAY\": [\n        { \"startHour\": \"09:00:00\", \"endHour\": \"21:00:00\" }\n      ],\n      \"SATURDAY\": [\n        { \"startHour\": \"10:00:00\", \"endHour\": \"22:00:00\" }\n      ]\n    }\n  },\n  \"owner\": {{userId}},\n  \"menuItems\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Menu Item",
+      "item": [
+        {
+          "name": "Create Menu Item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const id = pm.response.text();",
+                  "pm.test('Body is a numeric id', function () {",
+                  "    pm.expect(Number(id)).to.be.a('number').and.above(0);",
+                  "});",
+                  "",
+                  "pm.collectionVariables.set('menuItemId', id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Feijoada\",\n  \"price\": 45.90,\n  \"description\": \"Feijoada completa com acompanhamentos\",\n  \"image\": \"/images/feijoada.jpg\",\n  \"availableOnlyOnSite\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/menu",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "menu"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Menu Item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Menu item fields are present', function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.name).to.eql('Feijoada');",
+                  "    pm.expect(body.price).to.eql(45.90);",
+                  "    pm.expect(body.description).to.include('Feijoada');",
+                  "    pm.expect(body.image).to.eql('/images/feijoada.jpg');",
+                  "    pm.expect(body.availableOnlyOnSite).to.eql(false);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/menu/{{menuItemId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "menu",
+                "{{menuItemId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Menu Item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Feijoada Especial\",\n  \"price\": 52.50,\n  \"description\": \"Feijoada completa com torresmo e couve\",\n  \"image\": \"/images/feijoada-especial.jpg\",\n  \"availableOnlyOnSite\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/menu/{{menuItemId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "menu",
+                "{{menuItemId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Menu Item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/menu/{{menuItemId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "menu",
+                "{{menuItemId}}"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

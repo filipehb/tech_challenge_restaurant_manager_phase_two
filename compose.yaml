@@ -14,3 +14,19 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tech_challenge_restaurant_manager
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DOCKER_COMPOSE_ENABLED: "false"
+    depends_on:
+      db:
+        condition: service_healthy

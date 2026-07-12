@@ -12,4 +12,11 @@ public class UserTypeMapper {
                 userTypeEntity.getName()
         );
     }
+
+    public UserTypeEntity mapToEntity(UserType userType) {
+        return UserTypeEntity.builder()
+                .id(userType.getId())
+                .name(userType.getName())
+                .build();
+    }
 }

@@ -2,6 +2,7 @@ package com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.contro
 
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.User;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.UserInputDto;
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.UserOutputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.mappers.UserMapper;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.AssociateUserUseCase;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.CreateUserUseCase;
@@ -25,7 +26,7 @@ public class UserController {
         return createUserUseCase.create(user);
     }
 
-    public Long associateUserToUserType(Long userId, Long userTypeId) {
-        return associateUserUseCase.associateUserToUserType(userId, userTypeId);
+    public UserOutputDto associateUserToUserType(Long userId, Long userTypeId) {
+        return userMapper.mapToOutputDto(associateUserUseCase.associateUserToUserType(userId, userTypeId));
     }
 }

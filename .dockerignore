@@ -1,0 +1,16 @@
+.git
+.github
+.gradle
+.idea
+.vscode
+build
+docs
+out
+bin
+*.iml
+*.iws
+*.ipr
+.DS_Store
+HELP.md
+**/postman
+src/test

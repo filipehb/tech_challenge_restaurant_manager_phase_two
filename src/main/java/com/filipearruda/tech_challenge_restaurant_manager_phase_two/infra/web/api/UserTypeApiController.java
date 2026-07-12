@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/user-type")
 @RequiredArgsConstructor
 public class UserTypeApiController {
-    private UserTypeController userTypeController;
-    private UserTypeMapper userTypeMapper;
+    private final UserTypeController userTypeController;
+    private final UserTypeMapper userTypeMapper;
 
     @PostMapping
     public Long createUserType(@Valid @RequestBody UserTypeJson userTypeJson) {

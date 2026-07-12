@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface UserGateway {
     Optional<User> findById(Long userId);
 
-    Long update(User user);
+    User update(Long userId, User user);
 
     Long create(User user);
 }

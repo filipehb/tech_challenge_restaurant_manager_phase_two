@@ -19,4 +19,16 @@ public class UserMapper {
                 userTypeMapper.mapToDomain(userEntity.getUserTypeEntity())
         );
     }
+
+    public UserEntity mapToEntity(User user) {
+        return UserEntity.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .name(user.getName())
+                .userTypeEntity(user.getUserType() != null
+                        ? userTypeMapper.mapToEntity(user.getUserType())
+                        : null)
+                .build();
+    }
 }

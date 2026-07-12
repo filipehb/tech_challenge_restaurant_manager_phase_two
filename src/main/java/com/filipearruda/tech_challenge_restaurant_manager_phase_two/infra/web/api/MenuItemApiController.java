@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/menu")
 @RequiredArgsConstructor
 public class MenuItemApiController {
-    private MenuItemController menuItemController;
-    private MenuItemMapper menuItemMapper;
+    private final MenuItemController menuItemController;
+    private final MenuItemMapper menuItemMapper;
 
     @PostMapping
     public Long createMenuItem(@Valid @RequestBody MenuItemJson menuItemJson) {

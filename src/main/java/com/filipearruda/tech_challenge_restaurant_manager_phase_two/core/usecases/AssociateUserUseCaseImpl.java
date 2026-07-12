@@ -18,7 +18,7 @@ public class AssociateUserUseCaseImpl implements AssociateUserUseCase {
     }
 
     @Override
-    public Long associateUserToUserType(Long userId, Long userTypeId) {
+    public User associateUserToUserType(Long userId, Long userTypeId) {
         User user = userGateway.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
@@ -27,6 +27,6 @@ public class AssociateUserUseCaseImpl implements AssociateUserUseCase {
 
         user.setUserType(userType);
 
-        return userGateway.update(user);
+        return userGateway.update(userId, user);
     }
 }
