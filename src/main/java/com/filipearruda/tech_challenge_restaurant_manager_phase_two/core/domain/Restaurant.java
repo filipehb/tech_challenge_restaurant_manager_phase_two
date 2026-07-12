@@ -1,6 +1,5 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain;
 
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.TypeKitchen;
 import java.util.ArrayList;
 import java.util.List;
 

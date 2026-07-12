@@ -1,4 +1,4 @@
-package com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto;
+package com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain;
 
 public enum TypeKitchen {
     COMMERCIAL,
