@@ -22,8 +22,8 @@ public class RestaurantApiController {
     private final RestaurantMapper restaurantMapper;
 
     @PostMapping
-    public Long createRestaurant(@Valid @RequestBody RestaurantJson restaurantJson) {
-        return restaurantController.create(restaurantMapper.mapToDto(restaurantJson));
+    public HttpEntity<Long> createRestaurant(@Valid @RequestBody RestaurantJson restaurantJson) {
+        return new ResponseEntity<>(restaurantController.create(restaurantMapper.mapToDto(restaurantJson)), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{restaurantId}")
@@ -43,6 +43,6 @@ public class RestaurantApiController {
         RestaurantInputDto restaurantInputDto = restaurantMapper.mapToDto(restaurantJson);
         RestaurantOutputDto update = restaurantController.update(restaurantId, restaurantInputDto);
         RestaurantJson updatedRestaurantJson = restaurantMapper.mapToJson(update);
-        return new ResponseEntity<>(updatedRestaurantJson, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(updatedRestaurantJson, HttpStatus.OK);
     }
 }

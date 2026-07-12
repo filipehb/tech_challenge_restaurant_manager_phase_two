@@ -16,7 +16,9 @@ public class UserMapper {
                 userEntity.getEmail(),
                 userEntity.getPassword(),
                 userEntity.getName(),
-                userTypeMapper.mapToDomain(userEntity.getUserTypeEntity())
+                userEntity.getUserTypeEntity() != null
+                        ? userTypeMapper.mapToDomain(userEntity.getUserTypeEntity())
+                        : null
         );
     }
 

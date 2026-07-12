@@ -19,13 +19,13 @@ public class UserApiController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public Long createUser(@Valid @RequestBody UserJson userJson) {
-        return userController.create(userMapper.mapToDto(userJson));
+    public ResponseEntity<Long> createUser(@Valid @RequestBody UserJson userJson) {
+        return new ResponseEntity<>(userController.create(userMapper.mapToDto(userJson)), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/associate-user/{userId}/to-type/{userTypeId}")
     public ResponseEntity<UserJson> associateUserToUserType(@PathVariable Long userTypeId, @PathVariable Long userId) {
         UserJson userJson = userMapper.mapToJson(userController.associateUserToUserType(userId, userTypeId));
-        return new ResponseEntity<>(userJson, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(userJson, HttpStatus.CREATED);
     }
 }

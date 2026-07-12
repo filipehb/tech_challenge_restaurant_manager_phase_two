@@ -15,6 +15,7 @@ import java.time.LocalTime;
 @Table(name = "restaurant_schedule_slot")
 public class RestaurantScheduleSlotEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;

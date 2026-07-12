@@ -22,8 +22,8 @@ public class UserTypeApiController {
     private final UserTypeMapper userTypeMapper;
 
     @PostMapping
-    public Long createUserType(@Valid @RequestBody UserTypeJson userTypeJson) {
-        return userTypeController.create(userTypeMapper.mapToDto(userTypeJson));
+    public ResponseEntity<Long> createUserType(@Valid @RequestBody UserTypeJson userTypeJson) {
+        return new ResponseEntity<>(userTypeController.create(userTypeMapper.mapToDto(userTypeJson)), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{userTypeId}")
@@ -43,6 +43,6 @@ public class UserTypeApiController {
         UserTypeInputDto userTypeInputDto = userTypeMapper.mapToDto(userTypeJson);
         UserTypeOutputDto update = userTypeController.update(userTypeId, userTypeInputDto);
         UserTypeJson updatedUserTypeJson = userTypeMapper.mapToJson(update);
-        return new ResponseEntity<>(updatedUserTypeJson, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(updatedUserTypeJson, HttpStatus.OK);
     }
 }

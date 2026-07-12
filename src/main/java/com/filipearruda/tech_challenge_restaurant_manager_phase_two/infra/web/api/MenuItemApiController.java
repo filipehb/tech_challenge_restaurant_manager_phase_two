@@ -22,8 +22,8 @@ public class MenuItemApiController {
     private final MenuItemMapper menuItemMapper;
 
     @PostMapping
-    public Long createMenuItem(@Valid @RequestBody MenuItemJson menuItemJson) {
-        return menuItemController.create(menuItemMapper.mapToDto(menuItemJson));
+    public ResponseEntity<Long> createMenuItem(@Valid @RequestBody MenuItemJson menuItemJson) {
+        return new ResponseEntity<>(menuItemController.create(menuItemMapper.mapToDto(menuItemJson)), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{menuItemId}")
@@ -43,6 +43,6 @@ public class MenuItemApiController {
         MenuItemInputDto menuItemInputDto = menuItemMapper.mapToDto(menuItemJson);
         MenuItemOutputDto update = menuItemController.update(menuItemId, menuItemInputDto);
         MenuItemJson updatedMenuJson = menuItemMapper.mapToJson(update);
-        return new ResponseEntity<>(updatedMenuJson, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(updatedMenuJson, HttpStatus.OK);
     }
 }

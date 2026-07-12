@@ -16,7 +16,12 @@ public class RestaurantController {
     private final DeleteRestaurantUseCase deleteRestaurantUseCase;
     private final UpdateRestaurantUseCase updateRestaurantUseCase;
 
-    public RestaurantController(RestaurantMapper restaurantMapper, CreateRestaurantUseCase createRestaurantUseCase, GetRestaurantUseCase getRestaurantUseCase, DeleteRestaurantUseCase deleteRestaurantUseCase, UpdateRestaurantUseCase updateRestaurantUseCase) {
+    public RestaurantController(
+            RestaurantMapper restaurantMapper,
+            CreateRestaurantUseCase createRestaurantUseCase,
+            GetRestaurantUseCase getRestaurantUseCase,
+            DeleteRestaurantUseCase deleteRestaurantUseCase,
+            UpdateRestaurantUseCase updateRestaurantUseCase) {
         this.restaurantMapper = restaurantMapper;
         this.createRestaurantUseCase = createRestaurantUseCase;
         this.getRestaurantUseCase = getRestaurantUseCase;
