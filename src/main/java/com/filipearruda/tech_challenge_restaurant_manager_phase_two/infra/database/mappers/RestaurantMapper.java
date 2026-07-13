@@ -6,6 +6,7 @@ import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.databa
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -22,8 +23,8 @@ public class RestaurantMapper {
                 restaurantScheduleSlotMapper.mapToDomain(restaurantEntity.getScheduleSlots()),
                 restaurantEntity.getOwner(),
                 restaurantEntity.getMenuItems() != null
-                        ? restaurantEntity.getMenuItems().stream().map(menuItemMapper::mapToDomain).toList()
-                        : List.of()
+                        ? new ArrayList<>(restaurantEntity.getMenuItems().stream().map(menuItemMapper::mapToDomain).toList())
+                        : new ArrayList<>()
         );
     }
 
@@ -34,11 +35,11 @@ public class RestaurantMapper {
                 .name(restaurant.getName())
                 .address(restaurant.getAddress())
                 .typeKitchen(restaurant.getTypeKitchen())
-                .scheduleSlots(scheduleSlots.isEmpty() ? null : scheduleSlots)
+                .scheduleSlots(scheduleSlots.isEmpty() ? new ArrayList<>() : new ArrayList<>(scheduleSlots))
                 .owner(restaurant.getOwner())
                 .menuItems(restaurant.getMenuItems() != null
-                        ? restaurant.getMenuItems().stream().map(menuItemMapper::mapToEntity).toList()
-                        : List.of())
+                        ? new ArrayList<>(restaurant.getMenuItems().stream().map(menuItemMapper::mapToEntity).toList())
+                        : new ArrayList<>())
                 .build();
     }
 }

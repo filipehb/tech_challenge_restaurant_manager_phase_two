@@ -6,6 +6,7 @@ CREATE TABLE menu_item
     description            VARCHAR(255),
     image                  VARCHAR(255),
     available_only_on_site BOOLEAN                                 NOT NULL,
+    restaurant_id          BIGINT,
     CONSTRAINT pk_menu_item PRIMARY KEY (id)
 );
 
@@ -17,12 +18,6 @@ CREATE TABLE restaurant
     type_kitchen VARCHAR(255),
     owner        BIGINT,
     CONSTRAINT pk_restaurant PRIMARY KEY (id)
-);
-
-CREATE TABLE restaurant_menu_items
-(
-    restaurant_entity_id BIGINT NOT NULL,
-    menu_items_id        BIGINT NOT NULL
 );
 
 CREATE TABLE restaurant_schedule_slot
@@ -52,17 +47,11 @@ CREATE TABLE user_type
     CONSTRAINT pk_user_type PRIMARY KEY (id)
 );
 
-ALTER TABLE restaurant_menu_items
-    ADD CONSTRAINT uc_restaurant_menu_items_menuitems UNIQUE (menu_items_id);
+ALTER TABLE menu_item
+    ADD CONSTRAINT FK_MENU_ITEM_ON_RESTAURANT FOREIGN KEY (restaurant_id) REFERENCES restaurant (id);
 
 ALTER TABLE restaurant_schedule_slot
     ADD CONSTRAINT FK_RESTAURANT_SCHEDULE_SLOT_ON_RESTAURANT FOREIGN KEY (restaurant_id) REFERENCES restaurant (id);
 
 ALTER TABLE user_restaurant
     ADD CONSTRAINT FK_USER_ON_USERTYPEENTITY FOREIGN KEY (user_type_entity_id) REFERENCES user_type (id);
-
-ALTER TABLE restaurant_menu_items
-    ADD CONSTRAINT fk_resmenite_on_menu_item_entity FOREIGN KEY (menu_items_id) REFERENCES menu_item (id);
-
-ALTER TABLE restaurant_menu_items
-    ADD CONSTRAINT fk_resmenite_on_restaurant_entity FOREIGN KEY (restaurant_entity_id) REFERENCES restaurant (id);

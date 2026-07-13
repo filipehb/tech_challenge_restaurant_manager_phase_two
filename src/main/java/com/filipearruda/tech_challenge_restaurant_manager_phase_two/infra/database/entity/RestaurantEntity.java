@@ -24,6 +24,6 @@ public class RestaurantEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RestaurantScheduleSlotEntity> scheduleSlots;
     private Long owner;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItemEntity> menuItems;
 }

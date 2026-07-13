@@ -340,8 +340,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "    pm.response.to.have.status(200);",
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
                   "});",
                   "",
                   "const id = pm.response.text();",
@@ -428,8 +428,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 204', function () {",
-                  "    pm.response.to.have.status(204);",
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
                   "});"
                 ]
               }
@@ -445,7 +445,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Cantina da Maria Premium\",\n  \"address\": \"Av. Paulista, 1000\",\n  \"typeKitchen\": \"COMMERCIAL\",\n  \"restaurantSchedule\": {\n    \"weeklyHours\": {\n      \"MONDAY\": [\n        { \"startHour\": \"09:00:00\", \"endHour\": \"21:00:00\" }\n      ],\n      \"SATURDAY\": [\n        { \"startHour\": \"10:00:00\", \"endHour\": \"22:00:00\" }\n      ]\n    }\n  },\n  \"owner\": {{userId}},\n  \"menuItems\": []\n}"
+              "raw": "{\n  \"name\": \"Cantina da Maria\",\n  \"address\": \"Av. Paulista, 1000\",\n  \"typeKitchen\": \"COMMERCIAL\",\n  \"restaurantSchedule\": {\n    \"weeklyHours\": {\n      \"MONDAY\": [\n        { \"startHour\": \"09:00:00\", \"endHour\": \"21:00:00\" }\n      ],\n      \"SATURDAY\": [\n        { \"startHour\": \"10:00:00\", \"endHour\": \"22:00:00\" }\n      ]\n    }\n  },\n  \"owner\": {{userId}},\n  \"menuItems\": [{\n            \"name\": \"Dobradinha\",\n            \"price\": 23.9,\n            \"description\": \"Dobradinha completa com acompanhamentos\",\n            \"image\": \"/images/dobradinha.jpg\",\n            \"availableOnlyOnSite\": true\n        }]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
@@ -459,39 +459,6 @@
                 "{{restaurantId}}"
               ]
             }
-          }
-        },
-        {
-          "name": "Delete Restaurant",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('Status is 204', function () {",
-                  "    pm.response.to.have.status(204);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "restaurants",
-                "{{restaurantId}}"
-              ]
-            },
-            "description": ""
           }
         }
       ]
@@ -507,8 +474,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "    pm.response.to.have.status(200);",
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
                   "});",
                   "",
                   "const id = pm.response.text();",
@@ -544,6 +511,49 @@
                 "menu"
               ]
             }
+          }
+        },
+        {
+          "name": "Associate Menu Item to Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Restaurant contains associated menu item', function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.menuItems).to.be.an('array').that.is.not.empty;",
+                  "    const names = body.menuItems.map(item => item.name);",
+                  "    pm.expect(names).to.include('Feijoada');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants/associate-menu-item/{{menuItemId}}/to-restaurant/{{restaurantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants",
+                "associate-menu-item",
+                "{{menuItemId}}",
+                "to-restaurant",
+                "{{restaurantId}}"
+              ]
+            },
+            "description": ""
           }
         },
         {
@@ -595,8 +605,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test('Status is 204', function () {",
-                  "    pm.response.to.have.status(204);",
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
                   "});"
                 ]
               }
@@ -658,6 +668,39 @@
                 "{{menuItemId}}"
               ]
             }
+          }
+        },
+        {
+          "name": "Delete Restaurant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 204', function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/restaurants/{{restaurantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            },
+            "description": "Run after menu item association tests."
           }
         }
       ]

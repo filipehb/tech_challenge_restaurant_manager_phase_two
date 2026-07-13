@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class MenuItemMapper {
     public MenuItem mapToDomain(MenuItemEntity menuItemEntity) {
         return new MenuItem(
+                menuItemEntity.getId(),
                 menuItemEntity.getName(),
                 menuItemEntity.getPrice(),
                 menuItemEntity.getDescription(),
@@ -18,6 +19,7 @@ public class MenuItemMapper {
 
     public MenuItemEntity mapToEntity(MenuItem menuItem) {
         return MenuItemEntity.builder()
+                .id(menuItem.getId())
                 .name(menuItem.getName())
                 .price(menuItem.getPrice())
                 .description(menuItem.getDescription())

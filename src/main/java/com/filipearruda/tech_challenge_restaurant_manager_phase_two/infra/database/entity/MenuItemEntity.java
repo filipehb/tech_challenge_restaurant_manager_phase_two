@@ -1,9 +1,6 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -15,11 +12,15 @@ import lombok.*;
 @NoArgsConstructor
 public class MenuItemEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double price;
     private String description;
     private String image;
     private boolean availableOnlyOnSite;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    private RestaurantEntity restaurant;
 }

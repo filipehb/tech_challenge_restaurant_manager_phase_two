@@ -1,9 +1,12 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.gateway;
 
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.MenuItem;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.Restaurant;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.gateway.RestaurantGateway;
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.entity.MenuItemEntity;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.entity.RestaurantEntity;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.entity.RestaurantScheduleSlotEntity;
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.mappers.MenuItemMapper;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.mappers.RestaurantMapper;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.mappers.RestaurantScheduleSlotMapper;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.repository.RestaurantRepository;
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,13 +23,32 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RestaurantGatewayImpl implements RestaurantGateway {
     private final RestaurantMapper restaurantMapper;
+    private final MenuItemMapper menuItemMapper;
     private final RestaurantScheduleSlotMapper restaurantScheduleSlotMapper;
     private final RestaurantRepository restaurantRepository;
 
     @Override
     public Long create(Restaurant restaurant) {
-        RestaurantEntity savedRestaurantEntity = restaurantRepository.save(restaurantMapper.mapToEntity(restaurant));
-        return savedRestaurantEntity.getId();
+        List<RestaurantScheduleSlotEntity> slots =
+                restaurantScheduleSlotMapper.mapToEntity(restaurant.getRestaurantSchedule());
+        List<MenuItemEntity> menuItemEntities = restaurant.getMenuItems().stream().map(menuItemMapper::mapToEntity).toList();
+
+        RestaurantEntity restaurantEntity = restaurantMapper.mapToEntity(restaurant);
+        restaurantEntity.getScheduleSlots().clear();
+        restaurantEntity.getMenuItems().clear();
+
+        slots.forEach(slot -> {
+            slot.setRestaurant(restaurantEntity);
+            restaurantEntity.getScheduleSlots().add(slot);
+        });
+        menuItemEntities.forEach(menuItemEntity -> {
+            menuItemEntity.setRestaurant(restaurantEntity);
+            restaurantEntity.getMenuItems().add(menuItemEntity);
+        });
+
+        RestaurantEntity savedRestaurant = restaurantRepository.save(restaurantEntity);
+
+        return savedRestaurant.getId();
     }
 
     @Override
@@ -52,20 +75,31 @@ public class RestaurantGatewayImpl implements RestaurantGateway {
             return null;
         }
 
-        entity.get().setName(restaurant.getName());
-        entity.get().setAddress(restaurant.getAddress());
-        entity.get().setOwner(restaurant.getOwner());
-        entity.get().setTypeKitchen(restaurant.getTypeKitchen());
+        RestaurantEntity restaurantEntity = entity.get();
+        restaurantEntity.setName(restaurant.getName());
+        restaurantEntity.setAddress(restaurant.getAddress());
+        restaurantEntity.setOwner(restaurant.getOwner());
+        restaurantEntity.setTypeKitchen(restaurant.getTypeKitchen());
 
-        entity.get().getScheduleSlots().clear();
+        restaurantEntity.getScheduleSlots().clear();
         List<RestaurantScheduleSlotEntity> slots =
                 restaurantScheduleSlotMapper.mapToEntity(restaurant.getRestaurantSchedule());
         slots.forEach(slot -> {
-            slot.setRestaurant(entity.get());
-            entity.get().getScheduleSlots().add(slot);
+            slot.setRestaurant(restaurantEntity);
+            restaurantEntity.getScheduleSlots().add(slot);
         });
 
-        RestaurantEntity saved = restaurantRepository.save(entity.get());
+        restaurantEntity.getMenuItems().clear();
+        List<MenuItemEntity> menuItemEntities = restaurant.getMenuItems().stream()
+                .map(menuItemMapper::mapToEntity)
+                .toList();
+
+        menuItemEntities.forEach(menuItemEntity -> {
+            menuItemEntity.setRestaurant(restaurantEntity);
+            restaurantEntity.getMenuItems().add(menuItemEntity);
+        });
+
+        RestaurantEntity saved = restaurantRepository.save(restaurantEntity);
         return restaurantMapper.mapToDomain(saved);
     }
 }

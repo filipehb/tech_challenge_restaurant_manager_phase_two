@@ -1,6 +1,7 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain;
 
 public class MenuItem {
+    private Long id;
     private String name;
     private Double price;
     private String description;
@@ -13,6 +14,23 @@ public class MenuItem {
         this.description = description;
         this.image = image;
         this.availableOnlyOnSite = availableOnlyOnSite;
+    }
+
+    public MenuItem(Long id, String name, Double price, String description, String image, boolean availableOnlyOnSite) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.image = image;
+        this.availableOnlyOnSite = availableOnlyOnSite;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -147,6 +147,13 @@ public class CoreConfig {
     }
 
     @Bean
+    public AssociateMenuItemUseCase associateMenuItemUseCase(
+            RestaurantGateway restaurantGateway,
+            MenuItemGateway menuItemGateway) {
+        return new AssociateMenuItemUseCaseImpl(restaurantGateway, menuItemGateway);
+    }
+
+    @Bean
     public UserController userController(
             com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.mappers.UserMapper coreUserMapper,
             CreateUserUseCase createUserUseCase,
@@ -176,13 +183,15 @@ public class CoreConfig {
             CreateRestaurantUseCase createRestaurantUseCase,
             GetRestaurantUseCase getRestaurantUseCase,
             DeleteRestaurantUseCase deleteRestaurantUseCase,
-            UpdateRestaurantUseCase updateRestaurantUseCase) {
+            UpdateRestaurantUseCase updateRestaurantUseCase,
+            AssociateMenuItemUseCase associateMenuItemUseCase) {
         return new RestaurantController(
                 coreRestaurantMapper,
                 createRestaurantUseCase,
                 getRestaurantUseCase,
                 deleteRestaurantUseCase,
-                updateRestaurantUseCase
+                updateRestaurantUseCase,
+                associateMenuItemUseCase
         );
     }
 

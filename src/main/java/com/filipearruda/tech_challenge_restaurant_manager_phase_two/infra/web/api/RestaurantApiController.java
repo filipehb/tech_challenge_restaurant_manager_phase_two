@@ -45,4 +45,14 @@ public class RestaurantApiController {
         RestaurantJson updatedRestaurantJson = restaurantMapper.mapToJson(update);
         return new ResponseEntity<>(updatedRestaurantJson, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/associate-menu-item/{menuItemId}/to-restaurant/{restaurantId}")
+    public ResponseEntity<RestaurantJson> associateMenuItemToRestaurant(
+            @PathVariable Long menuItemId,
+            @PathVariable Long restaurantId) {
+        RestaurantJson restaurantJson = restaurantMapper.mapToJson(
+                restaurantController.associateMenuItemToRestaurant(restaurantId, menuItemId)
+        );
+        return new ResponseEntity<>(restaurantJson, HttpStatus.CREATED);
+    }
 }

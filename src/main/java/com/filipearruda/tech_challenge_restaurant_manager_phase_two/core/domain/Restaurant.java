@@ -34,7 +34,18 @@ public class Restaurant {
     }
 
     public void setMenuItems(List<MenuItem> menuItems) {
-        this.menuItems = menuItems;
+        this.menuItems = menuItems != null ? menuItems : new ArrayList<>();
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        if (menuItems == null) {
+            menuItems = new ArrayList<>();
+        }
+        boolean alreadyAssociated = menuItems.stream()
+                .anyMatch(existing -> existing.getId() != null && existing.getId().equals(menuItem.getId()));
+        if (!alreadyAssociated) {
+            menuItems.add(menuItem);
+        }
     }
 
     public Long getOwner() {

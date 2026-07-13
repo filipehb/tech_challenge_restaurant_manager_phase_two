@@ -4,6 +4,7 @@ import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantInputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantOutputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.mappers.RestaurantMapper;
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.AssociateMenuItemUseCase;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.CreateRestaurantUseCase;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.DeleteRestaurantUseCase;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.GetRestaurantUseCase;
@@ -15,18 +16,21 @@ public class RestaurantController {
     private final GetRestaurantUseCase getRestaurantUseCase;
     private final DeleteRestaurantUseCase deleteRestaurantUseCase;
     private final UpdateRestaurantUseCase updateRestaurantUseCase;
+    private final AssociateMenuItemUseCase associateMenuItemUseCase;
 
     public RestaurantController(
             RestaurantMapper restaurantMapper,
             CreateRestaurantUseCase createRestaurantUseCase,
             GetRestaurantUseCase getRestaurantUseCase,
             DeleteRestaurantUseCase deleteRestaurantUseCase,
-            UpdateRestaurantUseCase updateRestaurantUseCase) {
+            UpdateRestaurantUseCase updateRestaurantUseCase,
+            AssociateMenuItemUseCase associateMenuItemUseCase) {
         this.restaurantMapper = restaurantMapper;
         this.createRestaurantUseCase = createRestaurantUseCase;
         this.getRestaurantUseCase = getRestaurantUseCase;
         this.deleteRestaurantUseCase = deleteRestaurantUseCase;
         this.updateRestaurantUseCase = updateRestaurantUseCase;
+        this.associateMenuItemUseCase = associateMenuItemUseCase;
     }
 
     public Long create(RestaurantInputDto restaurantInputDto) {
@@ -47,5 +51,11 @@ public class RestaurantController {
         Restaurant restaurant = restaurantMapper.mapToDomain(restaurantInputDto);
         Restaurant updated = updateRestaurantUseCase.update(restaurantId, restaurant);
         return restaurantMapper.mapToOutputDto(updated);
+    }
+
+    public RestaurantOutputDto associateMenuItemToRestaurant(Long restaurantId, Long menuItemId) {
+        return restaurantMapper.mapToOutputDto(
+                associateMenuItemUseCase.associateMenuItemToRestaurant(restaurantId, menuItemId)
+        );
     }
 }
