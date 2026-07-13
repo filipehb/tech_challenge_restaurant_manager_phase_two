@@ -4,11 +4,7 @@ import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantInputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.dto.RestaurantOutputDto;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.mappers.RestaurantMapper;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.AssociateMenuItemUseCase;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.CreateRestaurantUseCase;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.DeleteRestaurantUseCase;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.GetRestaurantUseCase;
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.UpdateRestaurantUseCase;
+import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.usecases.*;
 
 public class RestaurantController {
     private final RestaurantMapper restaurantMapper;

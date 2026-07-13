@@ -1,6 +1,5 @@
 package com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.gateway;
 
-import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.MenuItem;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.domain.Restaurant;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.core.gateway.RestaurantGateway;
 import com.filipearruda.tech_challenge_restaurant_manager_phase_two.infra.database.entity.MenuItemEntity;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
