@@ -2,6 +2,8 @@
 
 **Language / Idioma:** [English](#english) | [Português](#português)
 
+![Coverage](.github/badges/jacoco.svg)
+
 ---
 
 # English
