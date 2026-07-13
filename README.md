@@ -4,6 +4,8 @@
 
 ![Coverage](.github/badges/jacoco.svg)
 
+https://github.com/filipehb/tech_challenge_restaurant_manager_phase_two
+
 ---
 
 # English
