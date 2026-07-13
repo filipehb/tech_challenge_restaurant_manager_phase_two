@@ -50,5 +50,14 @@ jacocoTestReport {
     reports {
         csv.required = true
         xml.required = true
+        html.required = true
     }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn('jacocoTestReport')
+}
+
+tasks.named('check') {
+    dependsOn('jacocoTestCoverageVerification')
 }
