@@ -277,8 +277,6 @@ Run all tests:
 
 ## OpenAPI documentation
 
-With the application running, interactive docs are available via SpringDoc (Swagger UI), usually at:
-
 - Swagger UI: http://localhost:8080/swagger-ui.html  
 - OpenAPI JSON: http://localhost:8080/v3/api-docs  
 
@@ -288,7 +286,7 @@ With the application running, interactive docs are available via SpringDoc (Swag
 
 ```text
 src/main/java/.../
-├── core/                         # Business rules (Clean Architecture)
+├── core/                         # Business rules
 │   ├── controllers/
 │   ├── domain/
 │   ├── dto/
@@ -304,7 +302,7 @@ src/main/resources/
 ├── db/migration/                 # Flyway
 └── postman/                      # Test collections
 Dockerfile
-compose.yaml                      # App + PostgreSQL
+compose.yaml
 ```
 
 ---
@@ -580,8 +578,6 @@ Executar todos os testes:
 
 ## Documentação OpenAPI
 
-Com a aplicação no ar, a documentação interativa fica disponível via SpringDoc (Swagger UI), normalmente em:
-
 - Swagger UI: http://localhost:8080/swagger-ui.html  
 - OpenAPI JSON: http://localhost:8080/v3/api-docs  
 
@@ -591,7 +587,7 @@ Com a aplicação no ar, a documentação interativa fica disponível via Spring
 
 ```text
 src/main/java/.../
-├── core/                         # Regras de negócio (Clean Architecture)
+├── core/                         # Regras de negócio
 │   ├── controllers/
 │   ├── domain/
 │   ├── dto/
@@ -607,5 +603,5 @@ src/main/resources/
 ├── db/migration/                 # Flyway
 └── postman/                      # Collections de teste
 Dockerfile
-compose.yaml                      # App + PostgreSQL
+compose.yaml
 ```
