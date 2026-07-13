@@ -1,4 +1,3 @@
-# Build stage
 FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /workspace
 
@@ -10,8 +9,7 @@ COPY src src
 RUN chmod +x gradlew \
     && ./gradlew bootJar --no-daemon -x test
 
-# Runtime stage
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jre-alpine AS runner
 WORKDIR /app
 
 RUN addgroup -S spring && adduser -S spring -G spring
